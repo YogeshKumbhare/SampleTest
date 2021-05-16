@@ -1,0 +1,47 @@
+
+
+import java.util.HashMap;
+import java.util.Stack;
+
+public class OracleTest {
+
+    // Given a string of round, curly, and square open and closing brackets, return whether the brackets are balanced (well-formed).
+
+    //  For example, given the string "([])[]({})", you should return true.
+
+    //  Given the string "([)]" or "((()", you should return false. 
+    static HashMap<Character, Character> mapCount;
+
+    static {
+        mapCount = new HashMap<>();
+
+        mapCount.put('(', ')');
+        mapCount.put('[', ']');
+        mapCount.put('{', '}');
+    }
+
+    static String validate(String inputString) {
+        if ((inputString.length() % 2) != 0) {
+            return "false";
+        }
+        Stack<Character> s = new Stack<>();
+
+        for (int i = 0; i < inputString.length(); i++) {
+            Character ch = inputString.charAt(i);
+
+            if (mapCount.containsKey(ch)) {
+                s.push(ch);
+            } else if (s.isEmpty() || ch != mapCount.get(s.pop())) {
+                return "false";
+            }
+        }
+
+        return s.isEmpty() ? "true" : "false";
+    }
+
+    public static void main(String[] args) {
+       String str =  OracleTest.validate("");
+        System.out.println(str);
+    }
+
+}
